@@ -16,9 +16,22 @@
 
 
 
-<a href="/research/" style="color: #007acc; font-size: 1.3em; text-decoration: none;">
+<a href="/research/" style="
+  display: inline-block;
+  background-color: #f2e3cd;
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 100%;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+">
   Моё резюме исследователя →
 </a>
+
+
+
+
 
 
 
