@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/src/site/notes/research/","title":"Исследования"}
+{"dg-publish":true,"dg-path":"research.md","permalink":"/research/","title":"Исследования"}
 ---
 
 
