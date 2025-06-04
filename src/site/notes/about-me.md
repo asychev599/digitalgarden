@@ -1,11 +1,7 @@
 ---
-dg-publish: true
-dg-home: true
-dg-path: "/"
-dg-permalink: "/"
-title: "Обо мне"
-date: 2025-06-04
+{"dg-publish":true,"dg-path":"/","dg-permalink":"/","permalink":"/","title":"Обо мне","tags":["gardenEntry"]}
 ---
+
 
 # Обо мне
 
