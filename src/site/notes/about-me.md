@@ -1,19 +1,14 @@
 ---
-<<<<<<< HEAD
 {"dg-publish":true,"dg-path":"/","dg-permalink":"/","permalink":"/","title":"Обо мне","tags":["gardenEntry"]}
 ---
 
 
-=======
-dg-publish: true
-dg-home: true
-dg-path: "/"
-dg-permalink: "/"
-title: "Обо мне"
-date: 2025-06-04
----
-
->>>>>>> d5a4e02 (Sync project with digitalgardendocs: полный перенос шаблонов и стилей)
 # Обо мне
 
-Здесь ваш текст «Обо мне» на русском.
+Привет! Меня зовут Андрей. Я занимаюсь веб-разработкой и люблю публиковать свои заметки о том, как я настраиваю Obsidian, Digital Garden и другие инструменты. В этом разделе я расскажу немного обо себе:
+
+- **Опыт:** более 5 лет в разработке на JavaScript, Node.js и Eleventy.
+- **Интересы:** системы заметок, личные блоги, digital garden, автоматизация рабочих процессов.
+- **Контакты:** [Email](mailto:andreysychev@example.com), [GitHub](https://github.com/asychev599), [LinkedIn](https://linkedin.com/in/andreysychev).
+
+Благодарю за посещение моего сайта! Здесь я делюсь своими мыслями, экспериментами и гайдами. Оставайтесь на связи!
