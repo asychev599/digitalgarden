@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"research/CV-research","permalink":"/research/cv-research/"}
+{"dg-publish":true,"dg-path":"исследования/CV-research","permalink":"/issledovaniya/cv-research/"}
 ---
 
 
