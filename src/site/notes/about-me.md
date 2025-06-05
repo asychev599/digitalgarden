@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-permalink":"/","permalink":"/","title":"Обо мне","tags":["gardenEntry"]}
+{"dg-publish":true,"dg-path":"about-me","permalink":"/about-me/","tags":["gardenEntry"]}
 ---
 
 
