@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/2 Темы/02_Темы_MOC","permalink":"/geofilosofiya/2-temy/02-temy-moc/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/2 Темы/02_Темы_MOC","permalink":"/kejs-baza-znanij/2-temy/02-temy-moc/"}
 ---
 
 

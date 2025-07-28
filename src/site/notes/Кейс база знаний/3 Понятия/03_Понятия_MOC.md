@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/3 Понятия/03_Понятия_MOC","permalink":"/geofilosofiya/3-ponyatiya/03-ponyatiya-moc/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/3 Понятия/03_Понятия_MOC","permalink":"/kejs-baza-znanij/3-ponyatiya/03-ponyatiya-moc/"}
 ---
 
 

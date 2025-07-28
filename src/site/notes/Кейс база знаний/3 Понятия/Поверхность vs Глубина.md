@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/3 Понятия/Поверхность vs Глубина","permalink":"/geofilosofiya/3-ponyatiya/poverhnost-vs-glubina/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/3 Понятия/Поверхность vs Глубина","permalink":"/kejs-baza-znanij/3-ponyatiya/poverhnost-vs-glubina/"}
 ---
 
 # Поверхность vs Глубина

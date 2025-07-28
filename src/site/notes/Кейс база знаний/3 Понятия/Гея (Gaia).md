@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/3 Понятия/Гея (Gaia)","permalink":"/geofilosofiya/3-ponyatiya/geya-gaia/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/3 Понятия/Гея (Gaia)","permalink":"/kejs-baza-znanij/3-ponyatiya/geya-gaia/"}
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/4 Авторы/04_Авторы_MOC","permalink":"/geofilosofiya/4-avtory/04-avtory-moc/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/4 Авторы/04_Авторы_MOC","permalink":"/kejs-baza-znanij/4-avtory/04-avtory-moc/"}
 ---
 
 # Авторы

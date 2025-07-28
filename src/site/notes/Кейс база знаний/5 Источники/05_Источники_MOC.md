@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/5 Источники/05_Источники_MOC","permalink":"/geofilosofiya/5-istochniki/05-istochniki-moc/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/5 Источники/05_Источники_MOC","permalink":"/kejs-baza-znanij/5-istochniki/05-istochniki-moc/"}
 ---
 
 

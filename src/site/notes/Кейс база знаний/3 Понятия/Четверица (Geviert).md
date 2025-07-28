@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Геофилософия/3 Понятия/Четверица (Geviert)","permalink":"/geofilosofiya/3-ponyatiya/chetvericza-geviert/"}
+{"dg-publish":true,"dg-path":"Кейс база знаний/3 Понятия/Четверица (Geviert)","permalink":"/kejs-baza-znanij/3-ponyatiya/chetvericza-geviert/"}
 ---
 
 # Четверица (Geviert)
