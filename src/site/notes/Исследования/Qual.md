@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/issledovaniya/qual/"}
+{"dg-publish":true,"permalink":"/issledovaniya/qual/","hideInGraph":true}
 ---
 
 **ОПЫТ В КАЧЕСТВЕННЫХ ИССЛЕДОВАНИЯХ**
