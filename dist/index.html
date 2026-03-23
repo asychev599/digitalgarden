@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кто здесь эксперт? — v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080c1a;
+  --bg-grid: #0d1228;
+  --bg-card: rgba(14, 19, 45, 0.7);
+  --bg-card-hover: rgba(20, 28, 60, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --text: #eef0f6;
+  --text-2: #a0a8c4;
+  --text-3: #5a6380;
+  --accent: #4d8bff;
+  --accent-2: #7babff;
+  --accent-glow: rgba(77, 139, 255, 0.15);
+  --accent-glow-strong: rgba(77, 139, 255, 0.3);
+  --green: #34d399;
+  --amber: #fbbf24;
+  --rose: #f472b6;
+  --border: rgba(77, 139, 255, 0.12);
+  --border-strong: rgba(77, 139, 255, 0.25);
+  --font: 'Manrope', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --grid-color: rgba(77, 139, 255, 0.05);
+  --grid-size: 60px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Glow orbs */
+body::after {
+  content: '';
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(77, 139, 255, 0.07) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+.page { position: relative; z-index: 1; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Utility ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent 80%);
+  margin: 80px 0;
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+  position: relative;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(77, 139, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; }
+
+.hero .badge { margin-bottom: 36px; opacity: 0; animation: slideUp .6s ease forwards .1s; }
+
+.hero-title {
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: slideUp .6s ease forwards .25s;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 300;
+  color: var(--text-2);
+  line-height: 1.4;
+  max-width: 700px;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: slideUp .6s ease forwards .4s;
+}
+
+.hero-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  opacity: 0;
+  animation: slideUp .6s ease forwards .55s;
+}
+
+.hero-meta-item {
+  font-size: 15px;
+  color: var(--text-3);
+}
+
+.hero-meta-item strong {
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: slideUp .6s ease forwards .7s;
+}
+
+.hero-scroll span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 48px;
+  position: relative;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+  animation: scrollDrop 2s ease-in-out infinite;
+}
+
+/* ── Section ── */
+.section {
+  padding: 100px 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all .7s cubic-bezier(.16, 1, .3, 1);
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-head {
+  margin-bottom: 48px;
+}
+
+.section-head .badge { margin-bottom: 20px; }
+
+.section-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.section-desc {
+  font-size: 18px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-top: 16px;
+}
+
+.section-desc strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Stat Grid ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all .3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.stat-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ── Sample ── */
+.sample-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sample-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: all .3s ease;
+}
+
+.sample-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.sample-num {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sample-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sample-detail {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-2);
+  background: var(--accent-glow);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all .2s ease;
+}
+
+.tag:hover {
+  background: var(--accent-glow-strong);
+  border-color: var(--border-strong);
+}
+
+.note-box {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: var(--bg-glass);
+  border-left: 3px solid var(--text-3);
+  border-radius: 0 12px 12px 0;
+  font-size: 15px;
+  color: var(--text-3);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ── Questions ── */
+.q-block {
+  margin-bottom: 40px;
+}
+
+.q-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+
+.q-text {
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 700;
+  line-height: 1.3;
+  padding-left: 28px;
+  border-left: 4px solid var(--accent);
+}
+
+.pivot-box {
+  margin-top: 40px;
+  padding: 28px 32px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-size: 18px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.pivot-box .big-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* ── Goals ── */
+.goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.goal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all .3s ease;
+}
+
+.goal-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.goal-num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.goal-text {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ── Executive Summary ── */
+.core-idea {
+  background: linear-gradient(135deg, rgba(77, 139, 255, 0.1) 0%, rgba(14, 19, 45, 0.9) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 64px;
+}
+
+.core-idea::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), transparent);
+}
+
+.core-idea .badge { margin-bottom: 24px; }
+
+.core-idea-text {
+  font-size: clamp(20px, 2.8vw, 26px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.core-idea-text strong {
+  font-weight: 700;
+  color: var(--accent-2);
+}
+
+/* ── Findings ── */
+.finding {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.finding:last-of-type { border-bottom: none; }
+
+.finding-num {
+  font-family: var(--mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.25;
+  line-height: 1;
+}
+
+.finding-title {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.finding-body {
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 680px;
+}
+
+/* ── Strategies ── */
+.strat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.strat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all .3s ease;
+}
+
+.strat:hover {
+  border-color: var(--border-strong);
+}
+
+.strat-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 4px;
+}
+
+.strat-quote {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.strat-risk {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ── Conclusion ── */
+.conclusion {
+  margin-top: 64px;
+  padding: 48px;
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.conclusion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(77, 139, 255, 0.12), transparent 60%);
+  pointer-events: none;
+}
+
+.conclusion .badge { margin-bottom: 24px; position: relative; }
+
+.conclusion-text {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 400;
+  line-height: 1.6;
+  position: relative;
+}
+
+.conclusion-text strong {
+  font-weight: 800;
+  color: var(--accent-2);
+}
+
+/* ── Consequences ── */
+.conseq-list { margin-top: 64px; }
+.conseq-list .badge { margin-bottom: 28px; }
+
+.conseq {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+}
+
+.conseq-num {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.conseq-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.conseq-desc {
+  font-size: 16px;
+  color: var(--text-2);
+}
+
+/* ── Roles ── */
+.roles-section { margin-top: 64px; }
+.roles-section .badge { margin-bottom: 28px; }
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.role-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all .3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.role-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+}
+
+.role-name {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-2);
+}
+
+.role-block-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+
+.role-block-text {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.role-risk .role-block-text {
+  color: var(--rose);
+  opacity: 0.7;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 80px 0 48px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .7s ease;
+}
+
+.footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-line {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 24px;
+  border-radius: 1px;
+}
+
+.footer-text {
+  font-size: 15px;
+  color: var(--text-3);
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDrop {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .roles-grid { grid-template-columns: 1fr; }
+  .finding { grid-template-columns: 1fr; }
+  .finding-num { font-size: 36px; }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 20px; }
+  .hero { padding: 60px 0; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .sample-grid { grid-template-columns: 1fr; }
+  .goals-grid { grid-template-columns: 1fr; }
+  .strat-grid { grid-template-columns: 1fr; }
+  .section { padding: 60px 0; }
+  .core-idea { padding: 28px; }
+  .conclusion { padding: 28px; }
+  .hero-meta-row { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="badge">Карточка исследования</div>
+      <h1 class="hero-title">Кто здесь <span class="highlight">эксперт?</span></h1>
+      <p class="hero-sub">ИИ и индустрия маркетинговых исследований</p>
+      <div class="hero-meta-row">
+        <div class="hero-meta-item"><strong>Автор:</strong> Андрей Сычёв, Artibi</div>
+        <div class="hero-meta-item"><strong>Дата:</strong> 22 марта 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════ МЕТОД ═══════════ -->
+<section class="section" id="method">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge">Метод</div>
+      <p class="section-desc"><strong>Конструктивистская обоснованная теория (Grounded Theory)</strong> по Шармаз (2006) — метод, который не навязывает данным структуру, а следует за ними. Категории, связи и модель возникают из данных интервью.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Формат</div>
+        <div class="stat-value">36</div>
+        <div class="stat-sub">глубинных интервью (60–90 мин)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Период</div>
+        <div class="stat-value">4 мес</div>
+        <div class="stat-sub">декабрь 2025 — март 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Модераторы</div>
+        <div class="stat-value">3</div>
+        <div class="stat-sub">человека</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Масштаб анализа</div>
+        <div class="stat-value">147</div>
+        <div class="stat-sub">кодов, 978 фрагментов, 8 категорий, 6 причинных цепочек</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ═══════════ ВЫБОРКА ═══════════ -->
+<section class="section" id="sample">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge">Выборка</div>
+      <h2 class="section-title">36 экспертных интервью</h2>
+    </div>
+
+    <div class="sample-grid">
+      <div class="sample-card">
+        <div class="sample-num">22</div>
+        <div>
+          <div class="sample-name">Агентства</div>
+          <div class="sample-detail">C-level (13), Director (2), Senior (4), Freelance (3)</div>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="sample-num">14</div>
+        <div>
+          <div class="sample-name">Клиенты</div>
+          <div class="sample-detail">Research Dir (12), Senior (2)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tags-row">
+      <span class="tag">Finance</span>
+      <span class="tag">Tech</span>
+      <span class="tag">Ecom</span>
+      <span class="tag">Telecom</span>
+      <span class="tag">FMCG</span>
+      <span class="tag">Media</span>
+      <span class="tag">Insurance</span>
+      <span class="tag">Real Estate</span>
+    </div>
+
+    <div class="note-box">Ограничения выборки: средний бизнес не представлен; на стороне агентств преимущественно C-level; специалисты и фрилансеры — в основном качественники.</div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ═══════════ ВОПРОСЫ ═══════════ -->
+<section class="section" id="questions">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge">Исследовательские вопросы</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">Изначальный вопрос</div>
+      <div class="q-text">Как проникновение ИИ трансформирует индустрию маркетинговых исследований?</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">Переформулированный по ходу исследования (вслед за данными)</div>
+      <div class="q-text">Что происходит с человеком, который работает в индустрии маркетинговых исследований, столкнувшейся с&nbsp;ИИ?</div>
+    </div>
+
+    <div class="pivot-box">
+      <span class="big-num">28 из 36</span> респондентов — без наводящих вопросов — заговорили о собственной незаменимости. Это стало самым частотным сюжетом в корпусе данных и развернуло фокус с индустрии на человека.
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ═══════════ ЦЕЛИ ═══════════ -->
+<section class="section" id="goals">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge">Главные цели и задачи</div>
+    </div>
+
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-num">01</div>
+        <div class="goal-text">Понять, как ИИ меняет мышление и профессиональную идентичность исследователей</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">02</div>
+        <div class="goal-text">Описать стратегии защиты экспертизы и их уязвимости</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">03</div>
+        <div class="goal-text">Выявить, как индивидуальные трансформации агрегируются в изменения рынка</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">04</div>
+        <div class="goal-text">Определить потолок доверия к ИИ и его основания</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">05</div>
+        <div class="goal-text">Зафиксировать системные последствия для индустрии</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">06</div>
+        <div class="goal-text">Предложить рамку для навигации — роли и принципы работы с ИИ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="divider"></div></div>
+
+<!-- ═══════════ EXECUTIVE SUMMARY ═══════════ -->
+<section class="section" id="summary">
+  <div class="container">
+    <div class="section-head">
+      <div class="badge">Executive Summary</div>
+      <h2 class="section-title">Основные выводы</h2>
+    </div>
+
+    <!-- Центральная идея -->
+    <div class="core-idea">
+      <div class="badge">Центральная идея модели</div>
+      <div class="core-idea-text"><strong>Переосмысление профессиональной экспертизы перед лицом ИИ</strong> — исследователь одновременно перестраивает мышление, переопределяет роль и удерживает убежденность в собственной незаменимости. Три процесса неотделимы друг от друга, но не коррелируют.</div>
+    </div>
+
+    <!-- 7 находок -->
+    <div class="finding">
+      <div class="finding-num">01</div>
+      <div>
+        <div class="finding-title">ИИ усиливает разрыв, а не выравнивает</div>
+        <div class="finding-body">Эффект Матфея: у кого есть экспертиза — ИИ её усиливает. У кого нет — создаёт иллюзию компетентности. Иллюзию сложно отличить от реальной экспертизы.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">02</div>
+      <div>
+        <div class="finding-title">Усиление и эрозия идут одновременно в одном человеке</div>
+        <div class="finding-body">18 из 36 описали эрозию критического мышления. 18 — потерю навыков. При этом те же люди отмечают рост скорости и новые возможности. Точка невозврата наступает через 6–12 месяцев использования.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">03</div>
+      <div>
+        <div class="finding-title">Форма убедительна — содержание пусто</div>
+        <div class="finding-body">ИИ производит тексты, которые выглядят как анализ (структура, буллеты, уверенный тон), но внутри — «тройбаны». Разрыв формы и смысла распространяется вверх: от отчётов к брифам заказчиков.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">04</div>
+      <div>
+        <div class="finding-title">Четыре стратегии защиты экспертизы — каждая с уязвимостью</div>
+        <div class="strat-grid">
+          <div class="strat">
+            <div class="strat-name">Онтологическая</div>
+            <div class="strat-quote">«машина не может думать»</div>
+            <div class="strat-risk">блокирует развитие</div>
+          </div>
+          <div class="strat">
+            <div class="strat-name">Нишевая</div>
+            <div class="strat-quote">«мы — крафт, артизан»</div>
+            <div class="strat-risk">защищает, пока клиент видит ценность</div>
+          </div>
+          <div class="strat">
+            <div class="strat-name">Делегирующая</div>
+            <div class="strat-quote">ИИ — команде, не себе</div>
+            <div class="strat-risk">зависимость от компетенции других</div>
+          </div>
+          <div class="strat">
+            <div class="strat-name">Усиление через ИИ</div>
+            <div class="strat-quote">AI-first</div>
+            <div class="strat-risk">«беговая дорожка», нужно бежать, чтобы стоять на месте</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">05</div>
+      <div>
+        <div class="finding-title">Рынок раскалывается по экспертизе, а не по технологии</div>
+        <div class="finding-body">Середина сжимается. Продвинутые конвертируют экономию времени в качество. Непрофессионалы получают доступ к «исследованиям» через ChatGPT. Исследований станет больше, среднее качество упадёт.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">06</div>
+      <div>
+        <div class="finding-title">Кризис воспроизводства кадров</div>
+        <div class="finding-body">ИИ автоматизирует именно то, на чём учились джуны. Если путь формирования экспертизы пропущен — откуда возьмутся эксперты через 5 лет?</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">07</div>
+      <div>
+        <div class="finding-title">Контракт клиент–агентство переопределяется</div>
+        <div class="finding-body">От «сделайте исследование» → к «помогите думать». Клиентам нужен «co-thinker», партнёр с независимым взглядом, а не производитель отчётов.</div>
+      </div>
+    </div>
+
+    <!-- Главный вывод -->
+    <div class="conclusion">
+      <div class="badge">Главный вывод</div>
+      <div class="conclusion-text"><strong>Не Human in the Loop, а Expert in the Loop.</strong> Человек в контуре — недостаточно. Нужен человек с экспертизой, критическим мышлением и основанием не согласиться с правдоподобным. Экспертиза — единственный ресурс, который невозможно автоматизировать. И она же — ресурс, воспроизводство которого ИИ подрывает.</div>
+    </div>
+
+    <!-- Последствия -->
+    <div class="conseq-list">
+      <div class="badge">Пять системных последствий</div>
+
+      <div class="conseq">
+        <div class="conseq-num">01</div>
+        <div>
+          <div class="conseq-title">Кризис воспроизводства кадров</div>
+          <div class="conseq-desc">вымывается путь, через который джуны становились экспертами</div>
+        </div>
+      </div>
+      <div class="conseq">
+        <div class="conseq-num">02</div>
+        <div>
+          <div class="conseq-title">Расслоение индустрии</div>
+          <div class="conseq-desc">усиление сильных, размывание средних</div>
+        </div>
+      </div>
+      <div class="conseq">
+        <div class="conseq-num">03</div>
+        <div>
+          <div class="conseq-title">Эрозия доверия к данным</div>
+          <div class="conseq-desc">привыкание к непрозрачности, утрата критериев «хороших данных»</div>
+        </div>
+      </div>
+      <div class="conseq">
+        <div class="conseq-num">04</div>
+        <div>
+          <div class="conseq-title">Когнитивная поляризация</div>
+          <div class="conseq-desc">умных делает умнее, глупых — глупее</div>
+        </div>
+      </div>
+      <div class="conseq">
+        <div class="conseq-num">05</div>
+        <div>
+          <div class="conseq-title">Новый контракт клиент ↔ агентство</div>
+          <div class="conseq-desc">ценность смещается к экспертизе и независимому взгляду</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Роли -->
+    <div class="roles-section">
+      <div class="badge">Три роли в экспертной системе с ИИ</div>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-name">Куратор</div>
+          <div class="role-block">
+            <div class="role-block-label">Суть</div>
+            <div class="role-block-text">Оркестрирует ИИ-системы, работает в контуре напрямую</div>
+          </div>
+          <div class="role-block role-risk">
+            <div class="role-block-label">Риск</div>
+            <div class="role-block-text">Ресурс несогласия конечен — устаёшь проверять</div>
+          </div>
+        </div>
+
+        <div class="role-card">
+          <div class="role-name">Стратег</div>
+          <div class="role-block">
+            <div class="role-block-label">Суть</div>
+            <div class="role-block-text">Ставит задачи, интерпретирует, работает с людьми</div>
+          </div>
+          <div class="role-block role-risk">
+            <div class="role-block-label">Риск</div>
+            <div class="role-block-text">Дистанция от инструмента может стать дистанцией от реальности</div>
+          </div>
+        </div>
+
+        <div class="role-card">
+          <div class="role-name">Нишевый эксперт</div>
+          <div class="role-block">
+            <div class="role-block-label">Суть</div>
+            <div class="role-block-text">Углубляется в то, что ИИ не воспроизводит</div>
+          </div>
+          <div class="role-block role-risk">
+            <div class="role-block-label">Риск</div>
+            <div class="role-block-text">Потеря темпа, если ниша сужается</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-line"></div>
+    <div class="footer-text">Андрей Сычёв, Artibi &middot; 2026</div>
+  </div>
+</footer>
+
+</div><!-- .page -->
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.section, .footer').forEach(el => obs.observe(el));
+
+let hidden = false;
+window.addEventListener('scroll', () => {
+  if (!hidden && window.scrollY > 120) {
+    const h = document.querySelector('.hero-scroll');
+    if (h) { h.style.transition = 'opacity .4s'; h.style.opacity = '0'; hidden = true; }
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
